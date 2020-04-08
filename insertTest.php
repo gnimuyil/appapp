@@ -1,7 +1,7 @@
 <?php
-$gender = $_POST['Gender'];
+$Gender = $_POST['Gender'];
 $email = $_POST['email'];
-$phone = $_POST['Phone'];
+$Phone = $_POST['Phone'];
 $First = $_POST['First'];
 $Last = $_POST['Last'];
 $Streetad1 = $_POST['Streetad1'];
