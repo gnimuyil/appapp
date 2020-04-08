@@ -1,7 +1,6 @@
 <?php
 $gender = $_POST['Gender'];
-$email = $_POST['Email'];
-$phoneCode = $_POST['phoneCode'];
+$email = $_POST['email'];
 $phone = $_POST['Phone'];
 $First = $_POST['First'];
 $Last = $_POST['Last'];
@@ -11,7 +10,7 @@ $City = $_POST['City'];
 $State = $_POST['State'];
 $Zip = $_POST['Zip'];
 $Birthdate = $_POST['Birthdate'];
-$4digSSN = $_POST['4digSSN'];
+$Last4SSN = $_POST['Last4SSN'];
 $PayPlan = $_POST['PayPlan'];
 $Goals = $_POST['Goals'];
 $FinCircumstances = $_POST['FinCircumstances'];
@@ -21,17 +20,17 @@ $AdminStatus = $_POST['AdminStatus'];
 $AnticipProg = $_POST['AnticipProg'];
 $ProgCost = $_POST['ProgCost'];
 $StartDate = $_POST['StartDate'];
-$1PayDate = $_POST['1PayDate'];
+$FirstPayDate = $_POST['FirstPayDate'];
 $CurrentDate = $_POST['CurrentDate'];
 
 
  
  
  
-if (!empty($Gender) || !empty($Email) || !empty($phoneCode) || !empty($Phone)||
+if (!empty($Gender) || !empty($email) || !empty($Phone)||
     !empty($First)|| !empty($Last)|| !empty($Streetad1)|| !empty($Streetad2)|| !empty($City)|| !empty($State)|| !empty($Zip)
-   || !empty($Birthdate)|| !empty($4digSSN)|| !empty($PayPlan)|| !empty($Goals)|| !empty($FinCircumstances)|| !empty($ExtraInfo)|| !empty($GoalSchool)
-   || !empty($AdminStatus)|| !empty($AnticipProg)|| !empty($ProgCost)|| !empty($StartDate)|| !empty($1PayDate)|| !empty($CurrentDate)) {
+   || !empty($Birthdate)|| !empty($Last4SSN)|| !empty($PayPlan)|| !empty($Goals)|| !empty($FinCircumstances)|| !empty($ExtraInfo)|| !empty($GoalSchool)
+   || !empty($AdminStatus)|| !empty($AnticipProg)|| !empty($ProgCost)|| !empty($StartDate)|| !empty($FirstPayDate)|| !empty($CurrentDate)) {
  $host = "localhost";
     $dbUsername = "lobo1";
     $dbPassword = "S217115";
@@ -40,11 +39,12 @@ if (!empty($Gender) || !empty($Email) || !empty($phoneCode) || !empty($Phone)||
     $conn = new mysqli($host, $dbUsername, $dbPassword, $dbname);
     if (mysqli_connect_error()) {
      die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
+	 echo "Connect Error";
     } else {
      $SELECT = "SELECT email From CentralDatabase Where email = ? Limit 1";
-     $INSERT = "INSERT Into CentralDatabase (Gender, Email, phoneCode, Phone, First, Last, Streetad1, Streetad2,
-     City, State, Zip, Birthdate, 4digSSN, PayPlan, Goals, FinCircumstances, ExtraInfo, GoalSchool, AdminStatus, AnticipProg,
-     ProgCost, StartDate, 1PayDate, CurrentDate) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+     $INSERT = "INSERT Into CentralDatabase (First, Last, Streetad1, Streetad2, City, State, Zip, Phone, email, Birthdate, Gender, Last4SSN, 
+	 PayPlan, Goals, FinCircumstances, ExtraInfo, GoalSchool, AdminStatus, AnticipProg,
+     ProgCost, StartDate, FirstPayDate, CurrentDate) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
      //Prepare statement
      $stmt = $conn->prepare($SELECT);
      $stmt->bind_param("s", $email);
@@ -55,9 +55,9 @@ if (!empty($Gender) || !empty($Email) || !empty($phoneCode) || !empty($Phone)||
      if ($rnum==0) {
       $stmt->close();
       $stmt = $conn->prepare($INSERT);
-      $stmt->bind_param("ssssii", $Gender, $Email, $phoneCode, $Phone, $First, $Last, $Streetad1, $Streetad2,
-     $City, $State, $Zip, $Birthdate, $4digSSN, $PayPlan, $Goals, $FinCircumstances, $ExtraInfo, $GoalSchool, $AdminStatus, $AnticipProg,
-     $ProgCost, $StartDate, $1PayDate, $CurrentDate);
+      $stmt->bind_param("ssssssiisssisssssssisss", $First, $Last, $Streetad1, $Streetad2, $City, $State, $Zip, $Phone, $email, $Birthdate, $Gender, $Last4SSN, 
+	  $PayPlan, $Goals, $FinCircumstances, $ExtraInfo, $GoalSchool, $AdminStatus, $AnticipProg,
+      $ProgCost, $StartDate, $FirstPayDate, $CurrentDate);
       $stmt->execute();
       echo "New record inserted sucessfully";
      } else {
