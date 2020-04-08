@@ -6,7 +6,7 @@ $email = $_POST['email'];
 $phoneCode = $_POST['phoneCode'];
 $phone = $_POST['phone'];
 if (!empty($username) || !empty($password) || !empty($gender) || !empty($email) || !empty($phoneCode) || !empty($phone)) {
- $host = "localhost";
+ $host = "cslab.kenyon.edu";
     $dbUsername = "lobo1";
     $dbPassword = "S217115";
     $dbname = "CommunityScholarship";
