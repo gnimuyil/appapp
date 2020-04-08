@@ -1,6 +1,4 @@
 <?php
-$username = $_POST['username'];
-$password = $_POST['password'];
 $gender = $_POST['Gender'];
 $email = $_POST['Email'];
 $phoneCode = $_POST['phoneCode'];
@@ -30,7 +28,7 @@ $CurrentDate = $_POST['CurrentDate'];
  
  
  
-if (!empty($username) || !empty($password) || !empty($Gender) || !empty($Email) || !empty($phoneCode) || !empty($Phone)||
+if (!empty($Gender) || !empty($Email) || !empty($phoneCode) || !empty($Phone)||
     !empty($First)|| !empty($Last)|| !empty($Streetad1)|| !empty($Streetad2)|| !empty($City)|| !empty($State)|| !empty($Zip)
    || !empty($Birthdate)|| !empty($4digSSN)|| !empty($PayPlan)|| !empty($Goals)|| !empty($FinCircumstances)|| !empty($ExtraInfo)|| !empty($GoalSchool)
    || !empty($AdminStatus)|| !empty($AnticipProg)|| !empty($ProgCost)|| !empty($StartDate)|| !empty($1PayDate)|| !empty($CurrentDate)) {
@@ -44,9 +42,9 @@ if (!empty($username) || !empty($password) || !empty($Gender) || !empty($Email) 
      die('Connect Error('. mysqli_connect_errno().')'. mysqli_connect_error());
     } else {
      $SELECT = "SELECT email From CentralDatabase Where email = ? Limit 1";
-     $INSERT = "INSERT Into CentralDatabase (username, password, Gender, Email, phoneCode, Phone, First, Last, Streetad1, Streetad2,
+     $INSERT = "INSERT Into CentralDatabase (Gender, Email, phoneCode, Phone, First, Last, Streetad1, Streetad2,
      City, State, Zip, Birthdate, 4digSSN, PayPlan, Goals, FinCircumstances, ExtraInfo, GoalSchool, AdminStatus, AnticipProg,
-     ProgCost, StartDate, 1PayDate, CurrentDate) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+     ProgCost, StartDate, 1PayDate, CurrentDate) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
      //Prepare statement
      $stmt = $conn->prepare($SELECT);
      $stmt->bind_param("s", $email);
@@ -57,7 +55,7 @@ if (!empty($username) || !empty($password) || !empty($Gender) || !empty($Email) 
      if ($rnum==0) {
       $stmt->close();
       $stmt = $conn->prepare($INSERT);
-      $stmt->bind_param("ssssii", $username, $password, $Gender, $Email, $phoneCode, $Phone, $First, $Last, $Streetad1, $Streetad2,
+      $stmt->bind_param("ssssii", $Gender, $Email, $phoneCode, $Phone, $First, $Last, $Streetad1, $Streetad2,
      $City, $State, $Zip, $Birthdate, $4digSSN, $PayPlan, $Goals, $FinCircumstances, $ExtraInfo, $GoalSchool, $AdminStatus, $AnticipProg,
      $ProgCost, $StartDate, $1PayDate, $CurrentDate);
       $stmt->execute();
